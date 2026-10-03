@@ -1,0 +1,81 @@
+# Frontend (Node.js/React) Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend Production builds
+dist/
+build/
+
+# Frontend Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Frontend Logs
+logs
+*.log
+
+# Backend (Python) Virtual environments
+venv/
+env/
+ENV/
+myenv/
+myenv_nb/
+
+# Backend Python cache and bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Backend Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Notebooks (Jupyter) Checkpoints
+.ipynb_checkpoints
+
+# General OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Model files
+*.pth
+*.pkl
+
+# Uploads, outputs, results
+uploads/
+outputs/
+results/
+
+# Large dataset files
+*.zip
+notebooks/celeba.zip

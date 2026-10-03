@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Explainability Demo</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+        }
+
+        .card {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        #loading {
+            display: none;
+        }
+
+        img {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Model Explainability</h1>
+    <div class="container">
+        <div class="card">
+            <h2>Controls</h2>
+            <form id="upload-form">
+                <label for="image_file"><b>Upload an Image:</b></label><br><br>
+                <input type="file" name="image_file" required>
+                <br><br>
+                <button type="submit">Get Explanation</button>
+            </form>
+        </div>
+        <div class="card">
+            <h2>Results</h2>
+            <div id="loading">Analyzing... Please wait.</div>
+            <div id="result-container">
+                <p id="placeholder">Your saliency map will appear here.</p>
+                <img id="saliency-map" style="display:none;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('placeholder').style.display = 'none';
+            document.getElementById('saliency-map').style.display = 'none';
+
+            // ====================================================================
+            // IMPORTANT: Replace this URL with the ngrok URL from your Colab output!
+            // ====================================================================
+            const backendUrl = 'https://nonseptic-unrecognizably-tasia.ngrok-free.dev/';
+            // ====================================================================
+
+            try {
+                const response = await fetch(backendUrl, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.saliency_map_url) {
+                    const mapImage = document.getElementById('saliency-map');
+                    mapImage.src = result.saliency_map_url;
+                    mapImage.style.display = 'block';
+                } else {
+                    alert('Error: ' + result.error);
+                    document.getElementById('placeholder').style.display = 'block';
+                }
+            } catch (e) {
+                alert("Error connecting to the backend. Make sure the URL is correct and the Colab cell is running.");
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>

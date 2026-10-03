@@ -1,0 +1,10 @@
+# Ignore datasets, models, and large files
+dataset/
+notebook/
+*.pth
+*.h5
+*.csv
+__pycache__/
+*.pyc
+*.ipynb_checkpoints/
+.DS_Store
